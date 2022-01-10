@@ -1,0 +1,42 @@
+import os
+def creatIfNotExist(folder):
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+files =os.listdir().remove("main.py")
+
+def move(folderName,files):
+    for file in files:
+        os.replace(file,f"{folderName}/{file}")
+        
+files = os.listdir()
+print(files)
+creatIfNotExist("Images")
+creatIfNotExist("Docs")
+creatIfNotExist("Media")
+creatIfNotExist("Exe")
+creatIfNotExist("Others")
+
+imgExts =[".png",".jpg",".jpeg"]
+docsExts=[".doc",".txt",".docs",".pdf",".zip"]
+mediaExts=[".mp3",".mp4",".mkv",".flv"]
+exeExts=[".exe"]
+
+
+images=[file for file in files if os.path.splitext(file)[1].lower() in imgExts ]
+docs=[file for file in files if os.path.splitext(file)[1].lower() in docsExts]
+medias=[file for file in files if os.path.splitext(file)[1].lower() in mediaExts]
+exe=[file for file in files if os.path.splitext(file)[1].lower() in exeExts]
+others= []
+
+for file in files:
+    ext = os.path.splitext(file)[1].lower()
+    if (ext not in mediaExts) and (ext not in docsExts) and (ext not in mediaExts) and (ext not in exeExts) and os.path.isfile(file):
+        others.append(file) 
+        print(others)
+
+
+move("Images",images)
+move("Docs",docs)
+move("Media",medias)
+move("Exe",exe)
+move("Others",others)
